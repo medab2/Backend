@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "spring.datasource2.url",
+      "type": "java.lang.String",
+      "description": "Description for spring.panthera.datasource.url.",
+      "defaultValue": "jdbc:db2://localhost:50000/PFE03"
+    },
+    {
+      "name": "spring.domain.datasource.url",
+      "type": "java.lang.String",
+      "description": "Description for spring.domain.datasource.url."
+    }
+  ] }
