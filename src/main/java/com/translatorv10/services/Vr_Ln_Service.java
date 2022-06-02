@@ -10,16 +10,12 @@ public class Vr_Ln_Service {
     @Autowired
     private VR_Ln_Repo vrLnRepo ;
 
-    public Vr_Ln_Service(VR_Ln_Repo vrLnRepo) {
-        this.vrLnRepo = vrLnRepo;
-    }
-
-    public void saveln_vr(String currentlanguage, String currentversion){
+   public Vr_Ln_Service(VR_Ln_Repo vrLnRepo) {
+       this.vrLnRepo = vrLnRepo;
+   }
+   public void saveln_vr(String currentlanguage, String currentversion){
         VR_LN vr_ln =new VR_LN();
         vr_ln.setLanguage(currentlanguage);
         vr_ln.setVersion(currentversion);
         vrLnRepo.save(vr_ln);
-    }
-
-
-}
+   }}

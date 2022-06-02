@@ -2,10 +2,7 @@ package com.translatorv10.domain;
 
 import com.translatorv10.keys.C3_Keys;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "C3_FORUM_NLS")
@@ -13,13 +10,21 @@ import javax.persistence.Table;
 public class C3_FORUM_NLS {
 
     @Id
+    @Column(columnDefinition = "CHARACTER(20)")
     private String ID_FORUM ;
     @Id
+    @Column(columnDefinition = "CHARACTER(20)")
     private String ID_CLASSIF3;
 
+    @Column(columnDefinition = "CHARACTER(50)")
     private String DESCR_CLASSIF3 ;
 
+    @Column(columnDefinition = "CHARACTER(50)")
+    private String tr_DESCR_CLASSIF3 ;
+
+    @Column(columnDefinition = "CHARACTER(1)")
     private String STATUS ="U";
+
 
     public C3_FORUM_NLS() {
     }

@@ -2,24 +2,31 @@ package com.translatorv10.domain;
 
 import com.translatorv10.keys.C4_Keys;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = " C4_FORUM_NLS")
+@Table(name = "C4_FORUM_NLS")
 @IdClass(C4_Keys.class)
 public class C4_FORUM_NLS {
     @Id
+    @Column(columnDefinition = "CHARACTER(20)")
     private String ID_FORUM;
+
     @Id
+    @Column(columnDefinition = "CHARACTER(20)")
     private String ID_CLASSIF3;
+
     @Id
+    @Column(columnDefinition = "CHARACTER(20)")
     private String ID_CLASSIF4;
 
+    @Column(columnDefinition = "CHARACTER(50)")
     private String DESCR_CLASSIF4 ;
 
+    @Column(columnDefinition = "CHARACTER(50)")
+    private String tr_DESCR_CLASSIF4 ;
+
+    @Column(columnDefinition = "CHARACTER(1)")
     private String STATUS ="U";
 
     public C4_FORUM_NLS() {

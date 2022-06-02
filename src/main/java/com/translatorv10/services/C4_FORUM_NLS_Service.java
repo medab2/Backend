@@ -27,7 +27,5 @@ public class C4_FORUM_NLS_Service {
         return c4_forum_nls_repo.save(c4_forum_nls);
     }
 
-    public void deleteC4(String ID_FORUM){
-        c4_forum_nls_repo.deleteById(ID_FORUM);
-    }
+
 }

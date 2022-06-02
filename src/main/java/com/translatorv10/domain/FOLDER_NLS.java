@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "name")
+@Table(name = "FOLDER_NLS")
 public class FOLDER_NLS {
     @Id
     private String FOLDER_ID;

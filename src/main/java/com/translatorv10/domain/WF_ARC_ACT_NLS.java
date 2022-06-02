@@ -2,23 +2,25 @@ package com.translatorv10.domain;
 
 import com.translatorv10.keys.WfArc_Keys;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "WF_ARC_ACT_NLS")
 @IdClass(WfArc_Keys.class)
 public class WF_ARC_ACT_NLS {
+
     @Id
+    @Column(columnDefinition="VARCHAR(2)")
     private String WF_CLASS_ID;
     @Id
+    @Column(columnDefinition="VARCHAR(10)")
     private String WF_ID;
     @Id
+    @Column(columnDefinition="VARCHAR(10)")
     private String WF_ARC_ID;
 
     @Id
+    @Column(columnDefinition="VARCHAR(2)")
     private String WF_ACTION_SEQ;
     private String DESCRIPTION;
     private String STATUS ="U";

@@ -51,9 +51,7 @@ public class C3_FORUM_NLS_Service {
         return c3_forum_nls_repo.save(c3_forum_nls);
     }
 
-    public void deleteC3(String ID_FORUM){
-        c3_forum_nls_repo.deleteById(ID_FORUM);
-    }
+
 
 
 }

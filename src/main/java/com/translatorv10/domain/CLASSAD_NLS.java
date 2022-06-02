@@ -9,7 +9,7 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = " CLASSAD_NLS")
+@Table(name = "CLASSAD_NLS")
 @IdClass(Ad_Keys.class )
 public class CLASSAD_NLS {
     @Id

@@ -4,23 +4,26 @@ package com.translatorv10.domain;
 import com.translatorv10.controller.Controller;
 import com.translatorv10.keys.C1_Keys;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "C1_FORUM_NLS")
 @IdClass(C1_Keys.class)
 public class C1_FORUM_NLS {
     @Id
+    @Column(columnDefinition = "CHARACTER(20)")
     private String ID_FORUM;
     @Id
+    @Column(columnDefinition = "CHARACTER(20)")
     private String ID_CLASSIF1;
 
+    @Column(columnDefinition = "CHARACTER(50)")
     private String DESCR_CLASSIF1;
 
+    @Column(columnDefinition = "CHARACTER(50)")
     private String tr_DESCR_CLASSIF1;
+
+    @Column(columnDefinition = "CHARACTER(1)")
     private String STATUS ="U";
 
     public C1_FORUM_NLS() {
@@ -79,5 +82,10 @@ public class C1_FORUM_NLS {
     public void setSTATUS(String STATUS) {
 
         this.STATUS = STATUS;
+    }
+
+    @Override
+    public String toString() {
+        return "C1_FORUM_NLS{ ID_FORUM='" + ID_FORUM+",ID_CLASSIF1='" + ID_CLASSIF1 + ",DESCR_CLASSIF1='" + DESCR_CLASSIF1 + ",tr_DESCR_CLASSIF1='" + tr_DESCR_CLASSIF1 +",STATUS='"+ STATUS +'}';
     }
 }

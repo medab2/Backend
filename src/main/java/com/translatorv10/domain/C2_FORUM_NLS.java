@@ -5,19 +5,24 @@ import com.translatorv10.keys.C2_Keys;
 import javax.persistence.*;
 
 @Entity
-@Table(name ="C2_FORUM_NLS " )
+@Table(name ="C2_FORUM_NLS " ,schema = "translatorv10")
 @IdClass(C2_Keys.class)
 public class C2_FORUM_NLS {
 
     @Id
+    @Column(columnDefinition = "CHARACTER(20)")
     private String ID_FORUM;
     @Id
+    @Column(columnDefinition = "CHARACTER(20)")
     private String ID_CLASSIF2;
 
+    @Column(columnDefinition = "CHARACTER(50)")
     private String DESCR_CLASSIF2 ;
 
+    @Column(columnDefinition = "CHARACTER(50)")
     private String tr_DESCR_CLASSIF2;
 
+    @Column(columnDefinition = "CHARACTER(1)")
     private String STATUS ="U";
 
     public C2_FORUM_NLS() {

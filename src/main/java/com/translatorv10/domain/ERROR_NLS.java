@@ -13,7 +13,7 @@ public class ERROR_NLS {
 
     private String tr_TEXT;
 
-    @Column(name = "tr_LONG_TEXT", columnDefinition="VARCHAR(400)")
+    @Column(name = "tr_LONG_TEXT")
     private String tr_LONG_TEXT;
 
     private String STATUS ="U";
@@ -76,5 +76,10 @@ public class ERROR_NLS {
 
     public void setTr_LONG_TEXT(String tr_LONG_TEXT) {
         this.tr_LONG_TEXT = tr_LONG_TEXT;
+    }
+
+    @Override
+    public String toString() {
+        return "ERROR_NLS{ERROR_ID='" + ERROR_ID +", EXT='" + TEXT + ", LONG_TEXT='" + LONG_TEXT +", tr_TEXT='" + tr_TEXT +", tr_LONG_TEXT='" + tr_LONG_TEXT +", STATUS='" + STATUS + '}';
     }
 }
