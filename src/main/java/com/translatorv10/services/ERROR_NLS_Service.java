@@ -1,5 +1,6 @@
 package com.translatorv10.services;
 
+import com.translatorv10.controller.Controller;
 import com.translatorv10.domain.ERROR_NLS;
 import com.translatorv10.repo.ERROR_NLS_Repo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class ERROR_NLS_Service {
 
                 while(rs.next()) {
                     ERROR_NLS error_nls1 = new ERROR_NLS();
-                    error_nls1.setERROR_ID(rs.getString(1));
+                    error_nls1.setERROR_ID(rs.getString(1).trim());
                     error_nls1.setTEXT(rs.getString(2));
                     error_nls1.setLONG_TEXT(rs.getString(3));
                     error_nls1.setTr_TEXT(rs.getString(4));
@@ -54,7 +55,6 @@ public class ERROR_NLS_Service {
             throw new RuntimeException(ex);
         }
     }
-
 
     public List findAllError() {
         return error_nls_repo.findAll();
@@ -71,11 +71,12 @@ public class ERROR_NLS_Service {
             Statement stmt2 = con2.createStatement();
 
             ResultSet rs1 = stmt1.executeQuery("select * from translatorv10.ERROR_NLS");
-            ResultSet rs2 = stmt2.executeQuery("select * from EN040005.ERROR_NLS  ");
+            ResultSet rs2 = stmt2.
+                    executeQuery("select * from "+ Controller.currentlanguage.toUpperCase() +"040641.ERROR_NLS  ");
 
             while (rs1.next()) {
                 ERROR_NLS error_nls = new ERROR_NLS();
-                error_nls.setERROR_ID(rs1.getString(1));
+                error_nls.setERROR_ID(rs1.getString(1).trim());
                 error_nls.setTEXT(rs1.getString(4));
                 error_nls.setLONG_TEXT(rs1.getString(5));
                 error_nls.setTr_LONG_TEXT(rs1.getString(2));
@@ -85,14 +86,13 @@ public class ERROR_NLS_Service {
 
             while (rs2.next()) {
                 ERROR_NLS error_nls = new ERROR_NLS();
-                error_nls.setERROR_ID(rs2.getString(1));
+                error_nls.setERROR_ID(rs2.getString(1).trim());
                 error_nls.setTEXT(rs2.getString(2));
                 error_nls.setLONG_TEXT(rs2.getString(3));
                 error_nls.setTr_LONG_TEXT(rs2.getString(4));
                 error_nls.setSTATUS(rs2.getString(5));
                 errorlist2.put(error_nls.getERROR_ID(),error_nls);
             }
-
 
             for (Map.Entry mapentry : errorlist1.entrySet()) {
 
@@ -128,17 +128,15 @@ public class ERROR_NLS_Service {
                     listDeleted.add(error_nls);
 
                 }
-
-            }}
+            }
+        }
         catch (SQLException ex) {
-
             throw new RuntimeException(ex);
-
         }
 
         for (ERROR_NLS error_nls : listNew ) {
 
-            ERROR_NLS errorNls = error_nls_repo.getById(error_nls.getERROR_ID());
+            ERROR_NLS errorNls = error_nls_repo.getById(error_nls.getERROR_ID().trim());
             errorNls.setSTATUS(error_nls.getSTATUS());
             error_nls_repo.save(errorNls);
 
@@ -146,47 +144,40 @@ public class ERROR_NLS_Service {
 
         for (ERROR_NLS error_nls  : listChanged ) {
 
-            ERROR_NLS errorNls = error_nls_repo.getById(error_nls.getERROR_ID());
+            ERROR_NLS errorNls = error_nls_repo.getById(error_nls.getERROR_ID().trim());
             errorNls.setSTATUS(error_nls.getSTATUS());
             error_nls_repo.save(errorNls);
 
         }
 
         for (ERROR_NLS error_nls  : listDeleted ) {
-
-            ERROR_NLS errorNls = error_nls_repo.getById(error_nls.getERROR_ID());
-            errorNls.setERROR_ID(error_nls.getERROR_ID());
+            ERROR_NLS errorNls =new ERROR_NLS();
+            errorNls.setERROR_ID(error_nls.getERROR_ID().trim());
             errorNls.setTEXT(error_nls.getTEXT());
             errorNls.setTr_LONG_TEXT(error_nls.getTr_LONG_TEXT());
-            errorNls.setSTATUS(error_nls.getSTATUS());
+            errorNls.setSTATUS(error_nls.getSTATUS().trim());
             error_nls_repo.save(errorNls);
-
         }
     }
 
 
+    
     public void importError(List<ERROR_NLS> error_nlsList) {
-        Connection con1 = null;
-        try {
-            con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/translatorv10", "root", "root");
-            Statement stmt1 = con1.createStatement();
-
-
 
             for (ERROR_NLS errornls : error_nlsList) {
 
                 ERROR_NLS error_nls = error_nls_repo.getById(errornls.getERROR_ID());
                 System.out.println(error_nls);
-                error_nls.setERROR_ID(errornls.getERROR_ID());
+                error_nls.setERROR_ID(errornls.getERROR_ID().trim());
                 error_nls.setTEXT(errornls.getTEXT());
                 error_nls.setTr_LONG_TEXT(errornls.getTr_LONG_TEXT());
                 error_nls.setTr_TEXT(errornls.getTr_TEXT());
                 error_nls.setLONG_TEXT(errornls.getLONG_TEXT());
                 error_nls.setSTATUS(errornls.getSTATUS());
                 error_nls_repo.save(error_nls);
+
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
     }
+
 }

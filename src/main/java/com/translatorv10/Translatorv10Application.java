@@ -14,9 +14,7 @@ public class Translatorv10Application  {
 	public static void main(String[] args) {
 
 		SpringApplication.run(Translatorv10Application.class, args);
-		while(Controller.currentlanguage!=null) {
-			Persistence.generateSchema(Controller.currentlanguage, null);
-		}
+
 	}
 
 }

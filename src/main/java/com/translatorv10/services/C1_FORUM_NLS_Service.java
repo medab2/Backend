@@ -1,6 +1,8 @@
 package com.translatorv10.services;
 
+import com.translatorv10.controller.Controller;
 import com.translatorv10.domain.C1_FORUM_NLS;
+import com.translatorv10.domain.ERROR_NLS;
 import com.translatorv10.keys.C1_Keys;
 import com.translatorv10.repo.C1_FORUM_NLS_Repo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +45,9 @@ public class C1_FORUM_NLS_Service {
             while(rs.next()) {
 
                 C1_FORUM_NLS c1ForumNls = new C1_FORUM_NLS();
-                c1ForumNls.setID_FORUM(rs.getString(1));
-                c1ForumNls.setID_CLASSIF1(rs.getString(2));
-                c1ForumNls.setDESCR_CLASSIF1(rs.getString(3));
+                c1ForumNls.setID_FORUM(rs.getString(1).trim());
+                c1ForumNls.setID_CLASSIF1(rs.getString(2).trim());
+                c1ForumNls.setDESCR_CLASSIF1(rs.getString(3).trim());
                 c1ForumNls.setTr_DESCR_CLASSIF1(rs.getString(4));
                 c1_forum_nls_repo.save(c1ForumNls);
 
@@ -72,16 +74,16 @@ public class C1_FORUM_NLS_Service {
                   Statement stmt1 = con1.createStatement();
                   Statement stmt2 = con2.createStatement();
                   ResultSet rs1 = stmt1.executeQuery("select * from translatorv10.C1_FORUM_NLS");
-                  ResultSet rs2 = stmt2.executeQuery("select * from EN040005.C1_FORUM_NLS  ");
+                  ResultSet rs2 = stmt2.executeQuery("select * from "+ Controller.currentlanguage.toUpperCase() +"040641.C1_FORUM_NLS");
 
             while (rs1.next()){
 
                 C1_FORUM_NLS c1ForumNls=new C1_FORUM_NLS();
-                c1ForumNls.setID_FORUM(rs1.getString(2));
-                c1ForumNls.setID_CLASSIF1(rs1.getString(1));
-                c1ForumNls.setDESCR_CLASSIF1(rs1.getString(3));
+                c1ForumNls.setID_FORUM(rs1.getString(2).trim());
+                c1ForumNls.setID_CLASSIF1(rs1.getString(1).trim());
+                c1ForumNls.setDESCR_CLASSIF1(rs1.getString(3).trim());
                 c1ForumNls.setTr_DESCR_CLASSIF1(rs1.getString(5));
-                c1ForumNls.setSTATUS(rs1.getString(4));
+                c1ForumNls.setSTATUS(rs1.getString(4).trim());
                 c1ForumNlsList.put(c1ForumNls.getID_CLASSIF1(),c1ForumNls);
 
             }
@@ -89,11 +91,11 @@ public class C1_FORUM_NLS_Service {
             while (rs2.next()){
 
                 C1_FORUM_NLS c1ForumNls=new C1_FORUM_NLS();
-                c1ForumNls.setID_FORUM(rs2.getString(1));
-                c1ForumNls.setID_CLASSIF1(rs2.getString(2));
-                c1ForumNls.setDESCR_CLASSIF1(rs2.getString(3));
+                c1ForumNls.setID_FORUM(rs2.getString(1).trim());
+                c1ForumNls.setID_CLASSIF1(rs2.getString(2).trim());
+                c1ForumNls.setDESCR_CLASSIF1(rs2.getString(3).trim());
                 c1ForumNls.setTr_DESCR_CLASSIF1(rs2.getString(4));
-                c1ForumNls.setSTATUS(rs2.getString(5));
+                c1ForumNls.setSTATUS(rs2.getString(5).trim());
                 c1ForumNlsList2.put(c1ForumNls.getID_CLASSIF1(),c1ForumNls);
 
             }
@@ -162,11 +164,25 @@ public class C1_FORUM_NLS_Service {
         for (C1_FORUM_NLS c1_forum_nls : listDeleted ) {
 
             C1_FORUM_NLS c1ForumNls =new C1_FORUM_NLS();
-            c1ForumNls.setID_FORUM(c1_forum_nls.getID_FORUM());
-            c1ForumNls.setID_CLASSIF1(c1_forum_nls.getID_CLASSIF1());
+            c1ForumNls.setID_FORUM(c1_forum_nls.getID_FORUM().trim());
+            c1ForumNls.setID_CLASSIF1(c1_forum_nls.getID_CLASSIF1().trim());
             c1ForumNls.setTr_DESCR_CLASSIF1(c1_forum_nls.getTr_DESCR_CLASSIF1());
-            c1ForumNls.setDESCR_CLASSIF1(c1_forum_nls.getDESCR_CLASSIF1());
-            c1ForumNls.setSTATUS(c1_forum_nls.getSTATUS());
+            c1ForumNls.setDESCR_CLASSIF1(c1_forum_nls.getDESCR_CLASSIF1().trim());
+            c1ForumNls.setSTATUS(c1_forum_nls.getSTATUS().trim());
+            c1_forum_nls_repo.save(c1ForumNls);
+
+        }
+    }
+
+    public void importc1(List<C1_FORUM_NLS> c1_forum_nls) {
+
+        for (C1_FORUM_NLS c1_forum : c1_forum_nls){
+
+            C1_Keys c1_keys = new C1_Keys(c1_forum.getID_FORUM(),c1_forum.getID_CLASSIF1());
+            C1_FORUM_NLS c1ForumNls= c1_forum_nls_repo.getById(c1_keys);
+            c1ForumNls.setTr_DESCR_CLASSIF1(c1_forum.getTr_DESCR_CLASSIF1());
+            c1ForumNls.setDESCR_CLASSIF1(c1_forum.getDESCR_CLASSIF1().trim());
+            c1ForumNls.setSTATUS(c1_forum.getSTATUS().trim());
             c1_forum_nls_repo.save(c1ForumNls);
 
         }

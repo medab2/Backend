@@ -13,8 +13,8 @@ public class ERROR_NLS {
 
     private String tr_TEXT;
 
-    @Column(name = "tr_LONG_TEXT")
-    private String tr_LONG_TEXT;
+    @Column(name = "tr_LONG_TEXT", columnDefinition="VARCHAR(400)")
+        private String tr_LONG_TEXT;
 
     private String STATUS ="U";
 
